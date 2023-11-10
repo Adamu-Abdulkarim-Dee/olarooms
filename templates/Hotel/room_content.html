@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rooms</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" 
+    crossorigin="anonymous">
+</head>
+<style>
+    .sidebar main{
+        height: 100%;
+    }
+</style>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+
+            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar vh-100 shadow-lg bg-body">
+                <div class="position-sticky">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a href="" class="nav-link active">Dashbaord</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="" class="nav-link">Page 1</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="" class="nav-link">Page 2</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 my-3">
+                <div class="card table-responsive-lg shadow-lg bg-body">
+                    <div class="card-body">
+                        <form action="" method="get">
+                            <div class="input-group m-2">
+                                <input type="text" name="q" id="q" class="form-control">
+                                <button type="submit" class="btn btn-primary">search</button>
+                            </div>
+                        </form>
+                        <div class="add_room p-3">
+                            <a class="btn btn-primary" href="{% url 'Create_Room' %}">Add Room</a>
+                        </div>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Room Name</th>
+                                    <th>Country</th>
+                                    <th>State</th>
+                                    <th>Town</th>
+                                    <th>Price</th>
+                                    <th>Currency</th>
+                                    <th>Room Status</th>
+                                    <th>Update</th>
+                                    <th>Open</th>
+                                </tr>
+                            </thead>
+
+                            {% for room in page_obj.object_list %}
+                            <tbody>
+                                <tr>
+                                    <th>{{ room.id }}</th>
+                                    <th>{{ room.room_name }}</th>
+                                    <th>{{ room.country }}</th>
+                                    <th>{{ room.state }}</th>
+                                    <th>{{ room.town }}</th>
+                                    <th>{{ room.price }}</th>
+                                    <th>{{ room.currency }}</th>
+                                    <th>{{ room.is_available }}</th>
+                                    <th class="text-center"><a class="btn btn-success" href="{% url 'Update_Room' room.slug %}">Update</a></th>
+                                    <th class="text-center"><a class="btn btn-primary" href="{% url 'Invitation' room.slug %}">Open</a></th>
+                                </tr>
+                            </tbody>
+                            {% endfor %}
+                        </table>
+
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-end">
+
+                                {% if page_obj.has_previous %}
+                                <li class="page-item">
+                                    <a href="?page={{ page_obj.previous_page_number }}" aria-label="Previous" class="page-link">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                {% endif %}
+
+                                <li class="page-item">
+                                    <a href="" class="page-link">{{ page_obj.number }}</a>
+                                </li>
+                                
+                                {% if page_obj.has_next %}
+                                <li class="page-item">
+                                    <a href="?page={{ page_obj.next_page_number }}" class="page-link" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                            {% endif %}
+
+                            </ul>
+                        </nav>
+
+                    </div>
+                </div>
+            </main>
+
+        </div>
+    </div>
+</body>
+</html>

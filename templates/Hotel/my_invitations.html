@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitations</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" 
+    crossorigin="anonymous">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+
+            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar vh-100 shadow-lg bg-body">
+                <div class="position-sticky">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a href="" class="nav-link active">Dashbaord</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="" class="nav-link">Page 1</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="" class="nav-link">Page 2</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 my-3">
+                <div class="card table-responsive-lg shadow-lg bg-body">
+                    <div class="card-body">
+                        <form action="" method="get">
+                            <div class="input-group my-3">
+                                <input type="text" name="q" id="q" class="form-control">
+                                <button type="submit" class="btn btn-primary">search</button>
+                            </div>
+                        </form>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Email</th>
+                                    <th>Phone Number</th>
+                                    <th>Days</th>
+                                    <th>Date & Time</th>
+                                    <th>Open</th>
+                                </tr>
+                            </thead>
+        
+                            {% for invitation in page_obj.object_list %}
+                            <tbody>
+                                <tr>
+                                    <th>{{ invitation.id }}</th>
+                                    <th>{{ invitation.first_name }}</th>
+                                    <th>{{ invitation.last_name }}</th>
+                                    <th>{{ invitation.email }}</th>
+                                    <th>{{ invitation.phone_number }}</th>
+                                    <th>{{ invitation.number_of_day }}</th>
+                                    <th>{{ invitation.created_on }}</th>
+                                    <th><a class="btn btn-primary" href="{% url 'invitation_information' invitation.slug %}">
+                                        Open
+                                    </a></th>
+                                </tr>
+                            </tbody>
+                            {%  endfor %}
+        
+                        </table>
+
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-end">
+
+                                {% if page_obj.has_previous %}
+                                <li class="page-item">
+                                    <a href="?page={{ page_obj.previous_page_number }}" aria-label="Previous" class="page-link">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                {% endif %}
+
+                                <li class="page-item">
+                                    <a href="" class="page-link">{{ page_obj.number }}</a>
+                                </li>
+                                
+                                {% if page_obj.has_next %}
+                                <li class="page-item">
+                                    <a href="?page={{ page_obj.next_page_number }}" class="page-link" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                            {% endif %}
+
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </main>
+
+        </div>
+    </div>
+</body>
+</html>
