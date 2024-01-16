@@ -188,7 +188,7 @@ def login(request):
         form = AuthenticationForm()        
     return render(request, 'Login/login.html', {'form':form})
 
-def log_out(reqauest):
+def log_out(request):
     logout(request)
     return redirect('/')
 
